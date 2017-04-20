@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="application.properties"/>
+    <context id="mysql" defaultModelType="flat" targetRuntime="MyBatis3Simple">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="com.lifetea.util.MyMapper"/>
+        </plugin>
+
+        <!--<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>-->
+        <!--<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
+            <!--<property name="searchString" value="[e|E]xample$" />-->
+            <!--<property name="replaceString" value="A" />-->
+        <!--</plugin>-->
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${spring.datasource.driver-class-name}"
+                        connectionURL="${spring.datasource.url}"
+                        userId="${spring.datasource.username}"
+                        password="${spring.datasource.password}">
+        </jdbcConnection>
+
+        <!--<javaTypeResolver>-->
+            <!--<property name="forceBigDecimals" value="false" />-->
+        <!--</javaTypeResolver>-->
+
+        <!-- generate model -->
+        <javaModelGenerator targetPackage="${mbg.target-package.model}"
+                            targetProject="${mbg.target-project.java}">
+            <!--<property name="enableSubPackages" value="true" />-->
+
+            <!-- 设置一个根对象，
+                如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项
+                注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：
+                1，属性名相同，类型相同，有相同的getter/setter方法；
+            -->
+            <property name="rootClass" value="com.lifetea.model.BaseEntity"/>
+
+            <!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+
+
+        <!-- 自动生成xml（但是好像一直没有生成功，反正也不用xml） -->
+        <sqlMapGenerator targetPackage="${mbg.target-package.mapper-xml}"
+                         targetProject="${mbg.target-project.resources}">
+            <!--<property name="enableSubPackages" value="true"/>-->
+        </sqlMapGenerator>
+
+
+        <!-- 自动生成mapper接口, 可以是 ANNOTATEDMAPPER(注解), XMLMAPPER(xml), MIXEDMAPPER(不知道) -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="${mbg.target-package.mapper}"
+                             targetProject="${mbg.target-project.java}">
+            <!--<property name="enableSubPackages" value="true" />-->
+        </javaClientGenerator>
+
+        <table tableName="%">
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="false"/>
+            <!--<columnOverride column="UNSIGNED_BIGINT_FIELD" javaType="java.lang.Object" jdbcType="LONG" />-->
+            <!--oracle 配置-->
+            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
+        </table>
+        <!--<table tableName="user">-->
+            <!-- 忽略列，不生成bean 字段 -->
+            <!--<ignoreColumn column="id" />-->
+            <!--mysql 配置-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+            <!--<columnOverride column="UNSIGNED_BIGINT_FIELD" javaType="java.lang.Object" jdbcType="LONG" />-->
+            <!--oracle 配置-->
+            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
+        <!--</table>-->
+
+    </context>
+</generatorConfiguration>
