@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("user")
 public class UserController {
 
-    @RequestMapping(value = "userInfo/{id}", method = RequestMethod.GET,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "userInfo", method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     @ResponseBody
 //    @RequiresRoles("admin")
 
