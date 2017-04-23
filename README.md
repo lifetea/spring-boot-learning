@@ -1,2 +1,2 @@
-# spring-boot-restful-swagger
-搭建spring boot restful 环境
+# spring-boot
+搭建spring boot 环境
